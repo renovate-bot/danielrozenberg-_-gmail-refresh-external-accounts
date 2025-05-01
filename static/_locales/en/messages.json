@@ -1,0 +1,26 @@
+{
+  "extensionName": {
+    "message": "GMail — Refresh External Accounts",
+    "description": "Name of the extension."
+  },
+  "extensionDescription": {
+    "message": "Automatically refreshes your POP3 external accounts in GMail once a minute",
+    "description": "Description of the extension."
+  },
+  "welcomeTitle": {
+    "message": "Welcome to GMail — Refresh External Accounts",
+    "description": "Title of the welcome page"
+  },
+  "welcomeDescription": {
+    "message": "This extension requires permission to access your data on GMail.",
+    "description": "Explanation of why the welcome page popped up"
+  },
+  "welcomeAdditionalInfo": {
+    "message": "This extension utilizes hidden tabs. Firefox will continue showing you a message about using hidden tabs until you press the “Keep Tabs Hidden” button.",
+    "description": "Additional information on the welcome page"
+  },
+  "welcomeActionButton": {
+    "message": "Grant permission",
+    "description": "Text to display on the button that will trigger the grant permission workflow"
+  }
+}

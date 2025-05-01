@@ -1,0 +1,31 @@
+{
+  "name": "gmail-refresh-external-accounts",
+  "version": "1.0.0",
+  "description": "Automatically refreshes your POP3 external accounts in GMail once a minute",
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/danielrozenberg/gmail-refresh-external-accounts"
+  },
+  "scripts": {
+    "build": "npm run clean && npm run build:static && npm run build:esbuild",
+    "build:static": "cp -r static/* dist/",
+    "build:esbuild": "esbuild src/*.ts --bundle --format=esm --sourcemap --outdir=dist/ --out-extension:.js=.mjs",
+    "clean": "rm -rf dist/ && mkdir dist/",
+    "lint": "eslint ."
+  },
+  "author": "Daniel Rozenberg",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/eslint": "9.6.1",
+    "@eslint/js": "9.25.1",
+    "@types/webextension-polyfill": "0.12.3",
+    "esbuild": "0.25.3",
+    "eslint": "9.25.1",
+    "eslint-config-prettier": "10.1.2",
+    "eslint-plugin-prettier": "5.2.6",
+    "prettier": "3.5.3",
+    "typescript": "5.8.3",
+    "typescript-eslint": "8.31.1"
+  }
+}

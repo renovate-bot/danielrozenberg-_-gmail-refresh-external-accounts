@@ -1,0 +1,30 @@
+{
+  "manifest_version": 3,
+  "name": "__MSG_extensionName__",
+  "version": "1.0.0",
+  "description": "__MSG_extensionDescription__",
+  "author": "Daniel Rozenberg",
+  "homepage_url": "https://github.com/danielrozenberg/gmail-refresh-external-accounts",
+  "icons": {
+    "48": "icons/logo.svg",
+    "96": "icons/logo.svg"
+  },
+  "background": {
+    "scripts": ["background.mjs"],
+    "type": "module"
+  },
+  "permissions": ["alarms", "tabHide"],
+  "host_permissions": ["https://mail.google.com/*"],
+  "content_scripts": [
+    {
+      "matches": ["https://mail.google.com/*"],
+      "js": ["content.mjs"]
+    }
+  ],
+  "default_locale": "en",
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "gmail-refresh-external-accounts@firefox.danielrozenberg.com"
+    }
+  }
+}
