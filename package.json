@@ -1,6 +1,6 @@
 {
   "name": "gmail-refresh-external-accounts",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Automatically refreshes your POP3 external accounts in GMail once a minute",
   "type": "module",
   "repository": {
