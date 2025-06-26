@@ -13,7 +13,7 @@
     "scripts": ["background.mjs"],
     "type": "module"
   },
-  "permissions": ["alarms", "tabHide"],
+  "permissions": ["alarms", "storage", "tabHide"],
   "host_permissions": ["https://mail.google.com/*"],
   "content_scripts": [
     {

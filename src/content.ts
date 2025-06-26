@@ -1,51 +1,42 @@
+import {
+  clickRefreshLinks,
+  hiddenTabIsReady,
+  initHiddenTab,
+} from './content/hidden-tabs';
+import { initVisibleTabs, updateRefreshStatus } from './content/visible-tabs';
+
 import type { Browser } from 'webextension-polyfill';
 
 declare const browser: Browser;
 
-const REFRESH_BUTTON_SELECTOR = '.T-I.J-J5-Ji.nu.T-I-ax7.L3';
-const REFRESH_LINK_SELECTOR = '.rP.sA';
-const INBOX_PAGE_HASH = '#inbox';
-
-function augmentRefreshButton() {
-  if (location.hash !== INBOX_PAGE_HASH) {
-    return;
-  }
-
-  const refreshButton = document.querySelector<HTMLElement>(
-    REFRESH_BUTTON_SELECTOR,
-  );
-  refreshButton?.addEventListener('click', refreshPop3Accounts);
-}
-
-async function refreshPop3Accounts() {
-  const message: RefreshPop3AccountsPayload = {
-    action: 'refreshPop3Accounts',
-  };
-  await browser.runtime.sendMessage(message);
-}
-
 // Message listener for the hidden tab to refresh POP3 accounts.
-browser.runtime.onMessage.addListener((_message: unknown) => {
-  const message = _message as Payload;
+browser.runtime.onMessage.addListener(async (_message: unknown) => {
+  const message = _message as MessageToContent;
 
-  if (message.action !== 'refreshPop3Accounts') {
-    console.warn('Unknown message:', message);
-    return;
-  }
+  switch (message.action) {
+    case 'hiddenTabIsInitialized':
+      // Expected only in hidden tabs.
+      return hiddenTabIsReady();
 
-  console.log('Refreshing POP3 accounts');
-  for (const refreshLink of document.querySelectorAll<HTMLElement>(
-    REFRESH_LINK_SELECTOR,
-  )) {
-    refreshLink.click();
+    case 'triggerPop3AccountsRefresh':
+      // Expected only in hidden tabs.
+      await clickRefreshLinks(message.silent);
+      return;
+
+    case 'updateRefreshStatus':
+      // Expected only in visible tabs.
+      updateRefreshStatus(message);
+      return;
+
+    default:
+      console.warn('Unknown message:', message);
+      return;
   }
 });
 
-console.log('Initializing `GMail — Refresh External Accounts` extension');
-const message: InitializeAutoRefreshPayload = {
-  action: 'initializeAutoRefresh',
-};
-void browser.runtime.sendMessage(message);
+void (async () => {
+  console.log('Initializing `GMail — Refresh External Accounts` extension');
 
-window.addEventListener('hashchange', augmentRefreshButton);
-augmentRefreshButton();
+  await initVisibleTabs();
+  await initHiddenTab();
+})();
