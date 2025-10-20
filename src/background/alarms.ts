@@ -12,7 +12,7 @@ export async function ensureAlarmExists() {
   }
 
   console.log('Initializing auto-refresh');
-  browser.alarms.create(ALARM_NAME, {
+  await browser.alarms.create(ALARM_NAME, {
     when: Date.now() + ALARM_INITIAL_DELAY,
     periodInMinutes: 1,
   });
